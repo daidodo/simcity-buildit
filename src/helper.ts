@@ -1,4 +1,7 @@
+import parse from 'parse-duration';
+
 export function t(str: string) {
-  // TODO
-  return 100;
+  const r = parse(str, 's');
+  if (r === undefined) throw Error(`Invalid duration: ${str}`);
+  return r;
 }

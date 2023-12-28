@@ -1,5 +1,21 @@
 import { t } from './helper';
-import { Production } from './types';
+import {
+  Producer,
+  Production,
+} from './types';
+
+const ALL_PRODUCERES: Producer[] = [
+  { name: 'Factory', slots: 5 },
+  { name: 'Building Supplies Store', slots: 11, sequential: true },
+  { name: 'Hardware Store', slots: 11, sequential: true },
+  { name: "Farmer's Market", slots: 11, sequential: true },
+  { name: 'Furniture Store', slots: 10, sequential: true },
+  { name: 'Gardening Supplies', slots: 10, sequential: true },
+  { name: 'Donut Shop', slots: 7, sequential: true },
+  { name: 'Fashion Store', slots: 11, sequential: true },
+  { name: 'Fast Food Restaurant', slots: 9, sequential: true },
+  { name: 'Home Appliances', slots: 11, sequential: true },
+];
 
 const ALL_PRODUCTIONS: Production[] = [
   // Factory
@@ -465,4 +481,4 @@ const ALL_PRODUCTIONS: Production[] = [
   },
 ];
 
-export { ALL_PRODUCTIONS };
+export { ALL_PRODUCERES, ALL_PRODUCTIONS };

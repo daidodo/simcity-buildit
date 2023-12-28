@@ -98,5 +98,8 @@
     "typedoc": "^0.25.4",
     "typedoc-plugin-markdown": "^3.17.1",
     "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "parse-duration": "^1.1.0"
   }
 }

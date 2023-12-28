@@ -5,3 +5,9 @@ export interface Production {
   producer: string;
   requirements?: string[];
 }
+
+export interface Producer {
+  name: string;
+  slots: number;
+  sequential?: boolean;
+}

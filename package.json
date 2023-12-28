@@ -1,6 +1,6 @@
 {
-  "name": "SimCity BuildIt",
-  "description": "PGame helper.",
+  "name": "simcity-buildit",
+  "description": "SimCity BuildIt game helper.",
   "bugs": {
     "url": "https://github.com/daidodo/simcity-buildit/issues"
   },
@@ -14,8 +14,7 @@
     "BuildIt"
   ],
   "version": "0.0.1",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/bin/main.js",
   "private": false,
   "scripts": {
     "compile": "tsc",
@@ -84,7 +83,9 @@
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.3",
+    "@types/args": "^5.0.3",
     "@types/babel__core": "^7.20.5",
+    "@types/humanize-duration": "^3.27.3",
     "@types/jest": "^29.5.11",
     "@typescript-eslint/eslint-plugin": "^6.15.0",
     "@typescript-eslint/parser": "^6.15.0",
@@ -100,6 +101,9 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "@dozerg/condition": "^1.0.7",
+    "args": "^5.0.3",
+    "humanize-duration": "^3.31.0",
     "parse-duration": "^1.1.0"
   }
 }

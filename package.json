@@ -1,16 +1,17 @@
 {
-  "name": "PROJECT_NAME",
-  "description": "PROJECT DESCRIPTION.",
+  "name": "SimCity BuildIt",
+  "description": "PGame helper.",
   "bugs": {
-    "url": "https://github.com/daidodo/PROJECT_NAME/issues"
+    "url": "https://github.com/daidodo/simcity-buildit/issues"
   },
-  "homepage": "https://github.com/daidodo/PROJECT_NAME#readme",
+  "homepage": "https://github.com/daidodo/simcity-buildit#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/daidodo/PROJECT_NAME.git"
+    "url": "git+https://github.com/daidodo/simcity-buildit.git"
   },
   "keywords": [
-    "PROJECT KEYWORD"
+    "SimCity",
+    "BuildIt"
   ],
   "version": "0.0.1",
   "main": "dist/index.js",
@@ -77,16 +78,17 @@
           "ignoreRestSiblings": true
         }
       ],
-      "tsdoc/syntax": "warn"
+      "tsdoc/syntax": "warn",
+      "jest/valid-title": "off"
     }
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.3",
     "@types/babel__core": "^7.20.5",
     "@types/jest": "^29.5.11",
-    "@typescript-eslint/eslint-plugin": "^6.13.2",
-    "@typescript-eslint/parser": "^6.13.2",
-    "eslint": "^8.55.0",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-jest": "^27.6.0",
     "eslint-plugin-tsdoc": "^0.2.17",

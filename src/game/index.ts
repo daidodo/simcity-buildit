@@ -4,7 +4,8 @@ import {
 } from './data';
 import Production from './Production';
 
-export { simoleon } from './simoleon';
+export * from './simoleon';
+export { timeStr } from './time';
 
 export function init() {
   const productions = ALL_PRODUCTIONS.map(data => new Production(data, ALL_PRODUCERES));

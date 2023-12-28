@@ -1,16 +1,11 @@
 #!/usr/bin/env node
 
-import { init } from '../game';
-import { parseArgs } from './args';
-import { listSummary } from './list';
+import args from 'args';
+
+args.command('list', 'List productions summary');
 
 function main(argv: string[]) {
-  const flags = parseArgs(argv);
-  const productions = init();
-  if (flags.list) {
-    listSummary(productions);
-    return;
-  }
+  args.parse(argv);
 }
 
 main(process.argv);

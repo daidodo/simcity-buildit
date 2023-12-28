@@ -25,4 +25,6 @@ const timeString = timeStringOrigin.humanizer({
   },
 });
 
-export { timeString };
+export function timeStr(value: number) {
+  return timeString(value * 1000);
+}

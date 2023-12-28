@@ -1,6 +1,5 @@
 import { assertNonNull } from '@dozerg/condition';
 
-import { timeString } from './helper';
 import {
   ProducerData,
   ProductionData,
@@ -42,11 +41,12 @@ export default class Production {
     return this.totalTime_;
   }
 
-  get totalTimeString() {
-    return timeString(this.totalTime * 1000);
-  }
-
   get price() {
     return this.data_.price;
+  }
+
+  pricePerHours(hours: number) {
+    if (this.totalTime < 3600 * hours) return this.data_.price;
+    return this.data_.price * 3600 * hours / this.totalTime;
   }
 }

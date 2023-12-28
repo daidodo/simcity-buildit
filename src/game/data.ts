@@ -1,4 +1,4 @@
-import { t } from './helper';
+import { t } from './time';
 import {
   ProducerData,
   ProductionData,
@@ -393,13 +393,6 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     price: 2560,
     producer: 'Fast Food Restaurant',
     requirements: ['Flour Bag', 'Cheese', 'Beef'],
-  },
-  {
-    name: 'Burger',
-    time: t('29m45s'),
-    price: 3620,
-    producer: 'Fast Food Restaurant',
-    requirements: ['Beef', 'Bread Roll', 'BBQ Grill'],
   },
   {
     name: 'Burger',

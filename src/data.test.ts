@@ -2,7 +2,7 @@ import {
   ALL_PRODUCERES,
   ALL_PRODUCTIONS,
 } from './data';
-import { Production } from './types';
+import { ProductionData } from './types';
 
 describe('ALL_PRODUCTIONS', () => {
   ALL_PRODUCTIONS.forEach(production => {
@@ -12,7 +12,7 @@ describe('ALL_PRODUCTIONS', () => {
   });
 });
 
-function testProduction(production: Production) {
+function testProduction(production: ProductionData) {
   const { requirements } = production;
   if (requirements && requirements.length > 0) {
     describe('Requirements', () => {

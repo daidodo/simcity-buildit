@@ -1,10 +1,10 @@
 import { t } from './helper';
 import {
-  Producer,
-  Production,
+  ProducerData,
+  ProductionData,
 } from './types';
 
-const ALL_PRODUCERES: Producer[] = [
+const ALL_PRODUCERES: ProducerData[] = [
   { name: 'Factory', slots: 5 },
   { name: 'Building Supplies Store', slots: 11, sequential: true },
   { name: 'Hardware Store', slots: 11, sequential: true },
@@ -17,7 +17,7 @@ const ALL_PRODUCERES: Producer[] = [
   { name: 'Home Appliances', slots: 11, sequential: true },
 ];
 
-const ALL_PRODUCTIONS: Production[] = [
+const ALL_PRODUCTIONS: ProductionData[] = [
   // Factory
   {
     name: 'Metal',

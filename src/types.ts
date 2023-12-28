@@ -1,4 +1,4 @@
-export interface Production {
+export interface ProductionData {
   name: string;
   time: number; // time to produce, in seconds
   price: number;
@@ -6,7 +6,7 @@ export interface Production {
   requirements?: string[];
 }
 
-export interface Producer {
+export interface ProducerData {
   name: string;
   slots: number;
   sequential?: boolean;

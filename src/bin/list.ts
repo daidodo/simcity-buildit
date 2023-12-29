@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import args from 'args';
 
 import { assertTrue } from '@dozerg/condition';

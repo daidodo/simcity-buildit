@@ -23,25 +23,25 @@ interface TimeEvents {
 
 function main(argv: string[]) {
   // @ts-expect-error: Disable options type check
-  args.parse(argv, { value: '<Production Name>' });
+  args.parse(argv, { value: '<Product Name>' });
   const name = args.sub.join(' ').toLowerCase();
   if (!name) {
     args.showHelp();
   }
-  const productions = init();
-  const production = productions.find(p => p.name.toLowerCase() === name);
-  if (!production) {
-    process.stderr.write(`Cannot find production name: ${name}\n`);
+  const products = init();
+  const product = products.find(p => p.name.toLowerCase() === name);
+  if (!product) {
+    process.stderr.write(`Cannot find product name: ${name}\n`);
     process.exit(1);
   }
-  const steps = optimiseSteps(getProducePlan(production));
+  const steps = optimiseSteps(getProducePlan(product));
   print(steps);
 }
 
 function print(steps: ProduceStep[]) {
   const events = toEvents(steps);
   const table = toTable(steps, events);
-  const names = steps.map(s => s.production.name + (s.count === 1 ? '' : `-${s.count}`));
+  const names = steps.map(s => s.product.name + (s.count === 1 ? '' : `-${s.count}`));
   const title = ['Time', ...names];
   const output = formatTable(title, table);
   process.stdout.write(output);

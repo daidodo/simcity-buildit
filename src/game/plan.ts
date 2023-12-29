@@ -1,20 +1,26 @@
 import { assertTrue } from '@dozerg/condition';
 
-import Production from './Production';
+import Product from './Product';
 
 export interface ProduceStep {
-  production: Production;
+  product: Product;
   count: number;
   deps: ProduceStep[];
   start: number;
   end: number;
 }
 
-export function getProducePlan(production: Production) {
-  const steps = new Array<ProduceStep>();
-  produceSteps(production, 1, 0, steps);
-  normalise(steps);
-  return steps;
+interface Params {
+  steps: ProduceStep[];
+  producers: Map<string, { time: number; step: ProduceStep }>;
+  time: number;
+}
+
+export function getProducePlan(product: Product) {
+  const p: Params = { steps: [], producers: new Map(), time: 0 };
+  produceSteps(product, p);
+  normalise(p.steps);
+  return p.steps;
 }
 
 /**
@@ -22,29 +28,43 @@ export function getProducePlan(production: Production) {
  */
 export function optimiseSteps(steps: ProduceStep[]) {
   steps.forEach(optimiseStep);
+  steps.sort(compare);
   const newSteps = steps.reduce((r, s) => {
-    if (r.length < 1) r.push(s);
-    else {
-      const p = r.find(a => a !== s && a.production === s.production && a.start === s.start);
-      if (!p) r.push(s);
-      else p.count += s.count;
-    }
+    if (r.length > 0) {
+      const p = r.find(
+        a => a !== s && a.product === s.product && (a.start === s.start || a.end === s.start),
+      );
+      if (p) {
+        p.count += s.count;
+        if (p.end === s.start) p.end = s.end;
+      } else r.push(s);
+    } else r.push(s);
     return r;
   }, new Array<ProduceStep>());
   newSteps.sort(compare);
   return newSteps;
 }
 
-function produceSteps(production: Production, count: number, time: number, steps: ProduceStep[]) {
-  const start = time - production.time;
-  const step: ProduceStep = { production, count, start, end: time, deps: [] };
-  const req = production.requirements.reduce(
-    (map, p) => map.set(p, (map.get(p) ?? 0) + 1),
-    new Map<Production, number>(),
+function produceSteps(product: Product, p: Params) {
+  const { producer } = product;
+  const { time, step: next } = getProducerTime(product, p);
+  const end = Math.min(p.time, time);
+  const start = end - product.time;
+  const step: ProduceStep = { product, start, end, deps: [], count: 1 };
+  p.steps.push(step);
+  if (producer.sequential) p.producers.set(producer.name, { time: start, step });
+  step.deps = product.deps.flatMap(d =>
+    new Array<Product>(d.count).fill(d.product).map(a => produceSteps(a, { ...p, time: start })),
   );
-  step.deps = [...req.entries()].map(([p, c]) => produceSteps(p, c * count, start, steps));
-  steps.push(step);
+  if (next) next.deps.push(step);
   return step;
+}
+
+function getProducerTime(product: Product, p: Params) {
+  const { producer } = product;
+  if (!producer.sequential) return { time: 0 };
+  const record = p.producers.get(producer.name);
+  return { ...record, time: record?.time ?? 0 };
 }
 
 function normalise(steps: ProduceStep[]) {
@@ -73,7 +93,5 @@ function optimiseStep(step: ProduceStep) {
 function compare(a: ProduceStep, b: ProduceStep) {
   const s = a.start - b.start;
   if (s !== 0) return s;
-  const e = a.end - b.end;
-  if (e !== 0) return e;
-  return b.count - a.count;
+  return a.end - b.end;
 }

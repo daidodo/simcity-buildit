@@ -2,8 +2,6 @@
 
 import args from 'args';
 
-import { assertTrue } from '@dozerg/condition';
-
 import {
   init,
   Production,
@@ -11,6 +9,7 @@ import {
   SIMOLEON,
   timeStr,
 } from '../game';
+import { formatTable } from './table';
 
 args.options([
   { name: 'time', description: 'Sort by prduce time' },
@@ -63,16 +62,7 @@ function format(title: string[], table: Stats[]) {
     const [name, time, price, pricePerHour] = row;
     return [name, timeStr(time), simoleon(price), simoleon(pricePerHour)];
   });
-  // Calc column lengths
-  const cl = content.reduce((r, a) => {
-    assertTrue(r.length === a.length);
-    for (let i = 0; i < r.length; ++i) r[i] = Math.max(r[i], a[i].length);
-    return r;
-  }, Array(title.length).fill(4));
-  const lines = [title, ['---'], ...content].map(row =>
-    row.map((c, i) => c.padEnd(cl[i], ' ')).join('  '),
-  );
-  return lines.join('\n');
+  return formatTable(title, content);
 }
 
 function main(argv: string[]) {

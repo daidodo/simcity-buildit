@@ -6,6 +6,7 @@ import Production from './Production';
 
 export * from './simoleon';
 export { timeStr } from './time';
+export * from './plan';
 
 export function init() {
   const productions = ALL_PRODUCTIONS.map(data => new Production(data, ALL_PRODUCERES));

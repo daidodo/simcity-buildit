@@ -37,6 +37,10 @@ export default class Production {
     return this.data_.name;
   }
 
+  get time() {
+    return this.data_.time;
+  }
+
   get totalTime() {
     return this.totalTime_;
   }
@@ -45,8 +49,12 @@ export default class Production {
     return this.data_.price;
   }
 
+  get requirements() {
+    return this.requirements_;
+  }
+
   pricePerHours(hours: number) {
     if (this.totalTime < 3600 * hours) return this.data_.price;
-    return this.data_.price * 3600 * hours / this.totalTime;
+    return (this.data_.price * 3600 * hours) / this.totalTime;
   }
 }

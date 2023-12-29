@@ -1,28 +1,28 @@
 import {
   ALL_PRODUCERES,
-  ALL_PRODUCTIONS,
+  ALL_PRODUCTS,
 } from './data';
-import { ProductionData } from './types';
+import { ProductData } from './types';
 
 describe('ALL_PRODUCTIONS', () => {
-  ALL_PRODUCTIONS.forEach(production => {
+  ALL_PRODUCTS.forEach(production => {
     describe(production.name, () => {
       testProduction(production);
     });
   });
 });
 
-function testProduction(production: ProductionData) {
-  const { requirements } = production;
-  if (requirements && requirements.length > 0) {
+function testProduction(production: ProductData) {
+  const { deps } = production;
+  if (deps && deps.length > 0) {
     describe('Requirements', () => {
       it('should have no duplicate', () => {
-        expect(new Set(requirements.map(r => r.name)).size).toBe(requirements.length);
+        expect(new Set(deps.map(r => r.name)).size).toBe(deps.length);
       });
-      requirements.forEach(r => {
+      deps.forEach(r => {
         describe(r.name, () => {
           it('should be defined', () => {
-            expect(ALL_PRODUCTIONS.some(p => p.name === r.name)).toBeTruthy();
+            expect(ALL_PRODUCTS.some(p => p.name === r.name)).toBeTruthy();
           });
           describe('Count', () => {
             it('should be positive', () => {

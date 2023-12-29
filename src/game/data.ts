@@ -1,10 +1,10 @@
 import { t } from './time';
 import {
   ProducerData,
-  ProductionData,
+  ProductData,
 } from './types';
 
-const ALL_PRODUCERES: ProducerData[] = [
+export const ALL_PRODUCERES: ProducerData[] = [
   { name: 'Factory', slots: 55 },
   { name: 'Building Supplies Store', slots: 11, sequential: true },
   { name: 'Hardware Store', slots: 11, sequential: true },
@@ -17,7 +17,7 @@ const ALL_PRODUCERES: ProducerData[] = [
   { name: 'Home Appliances', slots: 11, sequential: true },
 ];
 
-const ALL_PRODUCTIONS: ProductionData[] = [
+export const ALL_PRODUCTS: ProductData[] = [
   // Factory
   {
     name: 'Metal',
@@ -91,28 +91,28 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('4m'),
     price: 80,
     producer: 'Building Supplies Store',
-    requirements: [{ name: 'Metal', count: 2 }],
+    deps: [{ name: 'Metal', count: 2 }],
   },
   {
     name: 'Planks',
     time: t('24m'),
     price: 120,
     producer: 'Building Supplies Store',
-    requirements: [{ name: 'Wood', count: 2 }],
+    deps: [{ name: 'Wood', count: 2 }],
   },
   {
     name: 'Bricks',
     time: t('16m'),
     price: 190,
     producer: 'Building Supplies Store',
-    requirements: [{ name: 'Minerals', count: 2 }],
+    deps: [{ name: 'Minerals', count: 2 }],
   },
   {
     name: 'Cement',
     time: t('40m'),
     price: 440,
     producer: 'Building Supplies Store',
-    requirements: [
+    deps: [
       { name: 'Minerals', count: 2 },
       { name: 'Chemicals', count: 1 },
     ],
@@ -122,7 +122,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('48m'),
     price: 440,
     producer: 'Building Supplies Store',
-    requirements: [
+    deps: [
       { name: 'Plastic', count: 1 },
       { name: 'Chemicals', count: 2 },
     ],
@@ -132,7 +132,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('48m'),
     price: 320,
     producer: 'Building Supplies Store',
-    requirements: [
+    deps: [
       { name: 'Metal', count: 1 },
       { name: 'Minerals', count: 1 },
       { name: 'Chemicals', count: 2 },
@@ -144,7 +144,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('11m12s'),
     price: 90,
     producer: 'Hardware Store',
-    requirements: [
+    deps: [
       { name: 'Metal', count: 1 },
       { name: 'Wood', count: 1 },
     ],
@@ -154,7 +154,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('16m'),
     price: 110,
     producer: 'Hardware Store',
-    requirements: [
+    deps: [
       { name: 'Metal', count: 1 },
       { name: 'Plastic', count: 1 },
     ],
@@ -164,7 +164,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('24m'),
     price: 150,
     producer: 'Hardware Store',
-    requirements: [
+    deps: [
       { name: 'Metal', count: 1 },
       { name: 'Plastic', count: 1 },
       { name: 'Wood', count: 1 },
@@ -175,7 +175,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('36m'),
     price: 250,
     producer: 'Hardware Store',
-    requirements: [
+    deps: [
       { name: 'Metal', count: 2 },
       { name: 'Plastic', count: 2 },
       { name: 'Wood', count: 2 },
@@ -186,7 +186,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('48m'),
     price: 420,
     producer: 'Hardware Store',
-    requirements: [
+    deps: [
       { name: 'Metal', count: 2 },
       { name: 'Planks', count: 2 },
     ],
@@ -196,7 +196,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('1h36m'),
     price: 590,
     producer: 'Hardware Store',
-    requirements: [
+    deps: [
       { name: 'Metal', count: 2 },
       { name: 'Plastic', count: 2 },
       { name: 'Electrical Components', count: 1 },
@@ -208,14 +208,14 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('16m'),
     price: 160,
     producer: "Farmer's Market",
-    requirements: [{ name: 'Seeds', count: 2 }],
+    deps: [{ name: 'Seeds', count: 2 }],
   },
   {
     name: 'Flour Bag',
     time: t('24m'),
     price: 570,
     producer: "Farmer's Market",
-    requirements: [
+    deps: [
       { name: 'Seeds', count: 2 },
       { name: 'Textiles', count: 2 },
     ],
@@ -225,7 +225,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('1h12m'),
     price: 730,
     producer: "Farmer's Market",
-    requirements: [
+    deps: [
       { name: 'Seeds', count: 2 },
       { name: 'Tree Sapling', count: 1 },
     ],
@@ -235,14 +235,14 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('1h'),
     price: 440,
     producer: "Farmer's Market",
-    requirements: [{ name: 'Animal Feed', count: 1 }],
+    deps: [{ name: 'Animal Feed', count: 1 }],
   },
   {
     name: 'Corn',
     time: t('48m'),
     price: 280,
     producer: "Farmer's Market",
-    requirements: [
+    deps: [
       { name: 'Minerals', count: 1 },
       { name: 'Seeds', count: 4 },
     ],
@@ -252,14 +252,14 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('1h24m'),
     price: 660,
     producer: "Farmer's Market",
-    requirements: [{ name: 'Animal Feed', count: 2 }],
+    deps: [{ name: 'Animal Feed', count: 2 }],
   },
   {
     name: 'Beef',
     time: t('2h'),
     price: 860,
     producer: "Farmer's Market",
-    requirements: [{ name: 'Animal Feed', count: 3 }],
+    deps: [{ name: 'Animal Feed', count: 3 }],
   },
   // Furniture Store
   {
@@ -267,7 +267,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('16m'),
     price: 300,
     producer: 'Furniture Store',
-    requirements: [
+    deps: [
       { name: 'Wood', count: 2 },
       { name: 'Hammer', count: 1 },
       { name: 'Nails', count: 1 },
@@ -278,7 +278,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('24m'),
     price: 500,
     producer: 'Furniture Store',
-    requirements: [
+    deps: [
       { name: 'Nails', count: 2 },
       { name: 'Planks', count: 1 },
       { name: 'Hammer', count: 1 },
@@ -289,7 +289,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('1h'),
     price: 610,
     producer: 'Furniture Store',
-    requirements: [
+    deps: [
       { name: 'Textiles', count: 2 },
       { name: 'Measuring Tape', count: 1 },
     ],
@@ -299,7 +299,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('36m'),
     price: 900,
     producer: 'Furniture Store',
-    requirements: [
+    deps: [
       { name: 'Glass', count: 2 },
       { name: 'Planks', count: 2 },
       { name: 'Paint', count: 1 },
@@ -310,7 +310,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('2h'),
     price: 1810,
     producer: 'Furniture Store',
-    requirements: [
+    deps: [
       { name: 'Textiles', count: 3 },
       { name: 'Glue', count: 1 },
       { name: 'Drill', count: 1 },
@@ -322,7 +322,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('24m'),
     price: 310,
     producer: 'Gardening Supplies',
-    requirements: [
+    deps: [
       { name: 'Shovel', count: 1 },
       { name: 'Seeds', count: 1 },
     ],
@@ -332,7 +332,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('1h12m'),
     price: 420,
     producer: 'Gardening Supplies',
-    requirements: [
+    deps: [
       { name: 'Shovel', count: 1 },
       { name: 'Seeds', count: 2 },
     ],
@@ -342,7 +342,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('1h48m'),
     price: 820,
     producer: 'Gardening Supplies',
-    requirements: [
+    deps: [
       { name: 'Plastic', count: 2 },
       { name: 'Textiles', count: 2 },
       { name: 'Planks', count: 2 },
@@ -353,7 +353,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('1h36m'),
     price: 840,
     producer: 'Gardening Supplies',
-    requirements: [
+    deps: [
       { name: 'Metal', count: 3 },
       { name: 'Electrical Components', count: 1 },
       { name: 'Paint', count: 1 },
@@ -364,7 +364,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('3h12m'),
     price: 1740,
     producer: 'Gardening Supplies',
-    requirements: [
+    deps: [
       { name: 'Bricks', count: 2 },
       { name: 'Cement', count: 2 },
       { name: 'Shovel', count: 1 },
@@ -375,7 +375,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('1h12m'),
     price: 1600,
     producer: 'Gardening Supplies',
-    requirements: [
+    deps: [
       { name: 'Cement', count: 2 },
       { name: 'Glue', count: 1 },
     ],
@@ -386,7 +386,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('36m'),
     price: 950,
     producer: 'Donut Shop',
-    requirements: [
+    deps: [
       { name: 'Flour Bag', count: 1 },
       { name: 'Sugar and Spices', count: 1 },
     ],
@@ -396,7 +396,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('24m'),
     price: 1150,
     producer: 'Donut Shop',
-    requirements: [
+    deps: [
       { name: 'Fruit and Berries', count: 1 },
       { name: 'Vegetables', count: 1 },
     ],
@@ -406,7 +406,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('48m'),
     price: 1840,
     producer: 'Donut Shop',
-    requirements: [
+    deps: [
       { name: 'Flour Bag', count: 2 },
       { name: 'Cream', count: 1 },
     ],
@@ -416,7 +416,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('1h12m'),
     price: 2240,
     producer: 'Donut Shop',
-    requirements: [
+    deps: [
       { name: 'Flour Bag', count: 1 },
       { name: 'Fruit and Berries', count: 1 },
       { name: 'Cheese', count: 1 },
@@ -427,7 +427,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('3h12m'),
     price: 1750,
     producer: 'Donut Shop',
-    requirements: [
+    deps: [
       { name: 'Fruit and Berries', count: 1 },
       { name: 'Sugar and Spices', count: 1 },
       { name: 'Cream', count: 1 },
@@ -438,7 +438,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('48m'),
     price: 750,
     producer: 'Donut Shop',
-    requirements: [
+    deps: [
       { name: 'Sugar and Spices', count: 1 },
       { name: 'Cream', count: 1 },
       { name: 'Seeds', count: 2 },
@@ -450,7 +450,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('48m'),
     price: 600,
     producer: 'Fashion Store',
-    requirements: [
+    deps: [
       { name: 'Textiles', count: 2 },
       { name: 'Measuring Tape', count: 1 },
     ],
@@ -460,7 +460,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('1h'),
     price: 980,
     producer: 'Fashion Store',
-    requirements: [
+    deps: [
       { name: 'Plastic', count: 1 },
       { name: 'Textiles', count: 2 },
       { name: 'Glue', count: 1 },
@@ -471,7 +471,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('1h12m'),
     price: 580,
     producer: 'Fashion Store',
-    requirements: [
+    deps: [
       { name: 'Plastic', count: 2 },
       { name: 'Chemicals', count: 1 },
       { name: 'Glass', count: 1 },
@@ -482,7 +482,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('2h48m'),
     price: 1170,
     producer: 'Fashion Store',
-    requirements: [
+    deps: [
       { name: 'Textiles', count: 3 },
       { name: 'Glue', count: 1 },
       { name: 'Measuring Tape', count: 1 },
@@ -493,7 +493,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('2h'),
     price: 430,
     producer: 'Fashion Store',
-    requirements: [
+    deps: [
       { name: 'Plastic', count: 2 },
       { name: 'Textiles', count: 2 },
       { name: 'Measuring Tape', count: 1 },
@@ -505,7 +505,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('11m54s'),
     price: 2256,
     producer: 'Fast Food Restaurant',
-    requirements: [
+    deps: [
       { name: 'Cream', count: 1 },
       { name: 'Bread Roll', count: 1 },
     ],
@@ -515,7 +515,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('20m24s'),
     price: 2560,
     producer: 'Fast Food Restaurant',
-    requirements: [
+    deps: [
       { name: 'Flour Bag', count: 1 },
       { name: 'Cheese', count: 1 },
       { name: 'Beef', count: 1 },
@@ -526,7 +526,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('29m45s'),
     price: 3620,
     producer: 'Fast Food Restaurant',
-    requirements: [
+    deps: [
       { name: 'Beef', count: 1 },
       { name: 'Bread Roll', count: 1 },
       { name: 'BBQ Grill', count: 1 },
@@ -537,7 +537,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('17m'),
     price: 1050,
     producer: 'Fast Food Restaurant',
-    requirements: [
+    deps: [
       { name: 'Cheese', count: 1 },
       { name: 'Vegetables', count: 1 },
     ],
@@ -547,7 +547,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('51m'),
     price: 1690,
     producer: 'Fast Food Restaurant',
-    requirements: [
+    deps: [
       { name: 'Glass', count: 2 },
       { name: 'Sugar and Spices', count: 2 },
       { name: 'Fruit and Berries', count: 1 },
@@ -558,7 +558,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('25m30s'),
     price: 1250,
     producer: 'Fast Food Restaurant',
-    requirements: [
+    deps: [
       { name: 'Microwave Oven', count: 1 },
       { name: 'Corn', count: 2 },
     ],
@@ -569,7 +569,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('2h28m'),
     price: 530,
     producer: 'Home Appliances',
-    requirements: [
+    deps: [
       { name: 'Metal', count: 3 },
       { name: 'Cooking Utensils', count: 1 },
     ],
@@ -579,7 +579,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('3h9m'),
     price: 1060,
     producer: 'Home Appliances',
-    requirements: [
+    deps: [
       { name: 'Plastic', count: 2 },
       { name: 'Chemicals', count: 2 },
       { name: 'Electrical Components', count: 2 },
@@ -590,7 +590,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('1h34m'),
     price: 890,
     producer: 'Home Appliances',
-    requirements: [
+    deps: [
       { name: 'Chemicals', count: 1 },
       { name: 'Glass', count: 1 },
       { name: 'Electrical Components', count: 1 },
@@ -601,7 +601,7 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('2h15m'),
     price: 1280,
     producer: 'Home Appliances',
-    requirements: [
+    deps: [
       { name: 'Plastic', count: 2 },
       { name: 'Glass', count: 2 },
       { name: 'Electrical Components', count: 2 },
@@ -612,12 +612,10 @@ const ALL_PRODUCTIONS: ProductionData[] = [
     time: t('1h48m'),
     price: 480,
     producer: 'Home Appliances',
-    requirements: [
+    deps: [
       { name: 'Metal', count: 4 },
       { name: 'Glass', count: 1 },
       { name: 'Electrical Components', count: 1 },
     ],
   },
 ];
-
-export { ALL_PRODUCERES, ALL_PRODUCTIONS };

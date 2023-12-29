@@ -9,7 +9,7 @@ import {
   ProduceStep,
   timeStr,
 } from '../game';
-import { formatTable } from './table';
+import { formatTable } from './helper';
 
 interface Event {
   step: ProduceStep;

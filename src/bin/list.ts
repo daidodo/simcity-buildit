@@ -9,7 +9,7 @@ import {
   SIMOLEON,
   timeStr,
 } from '../game';
-import { formatTable } from './table';
+import { formatTable } from './helper';
 
 args.options([
   { name: 'time', description: 'Sort by prduce time' },

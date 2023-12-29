@@ -11,14 +11,8 @@ import {
 } from '../game';
 
 args.options([
-  {
-    name: 'time',
-    description: 'Sort by prduce time',
-  },
-  {
-    name: 'price',
-    description: 'Sort by sale price',
-  },
+  { name: 'time', description: 'Sort by prduce time' },
+  { name: 'price', description: 'Sort by sale price' },
   {
     name: 'earn',
     description: 'Sort by earnings per n hours',

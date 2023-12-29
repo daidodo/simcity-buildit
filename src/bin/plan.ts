@@ -5,6 +5,7 @@ import args from 'args';
 import {
   getProducePlan,
   init,
+  optimiseSteps,
   ProduceStep,
   timeStr,
 } from '../game';
@@ -33,14 +34,14 @@ function main(argv: string[]) {
     process.stderr.write(`Cannot find production name: ${name}\n`);
     process.exit(1);
   }
-  const steps = getProducePlan(production);
+  const steps = optimiseSteps(getProducePlan(production));
   print(steps);
 }
 
 function print(steps: ProduceStep[]) {
   const events = toEvents(steps);
   const table = toTable(steps, events);
-  const names = steps.map(s => s.production.name + (s.count === 1 ? '' : ` x${s.count}`));
+  const names = steps.map(s => s.production.name + (s.count === 1 ? '' : `-${s.count}`));
   const title = ['Time', ...names];
   const output = formatTable(title, table);
   process.stdout.write(output);
@@ -74,7 +75,7 @@ function toTable(steps: ProduceStep[], events: TimeEvents[]) {
           : s.start < t.time && t.time < s.end
             ? '|'
             : t.time === s.end
-              ? '-'
+              ? '⊥'
               : '';
     });
     return row;

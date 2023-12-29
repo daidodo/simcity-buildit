@@ -5,7 +5,7 @@ import {
 } from './types';
 
 const ALL_PRODUCERES: ProducerData[] = [
-  { name: 'Factory', slots: 5 },
+  { name: 'Factory', slots: 55 },
   { name: 'Building Supplies Store', slots: 11, sequential: true },
   { name: 'Hardware Store', slots: 11, sequential: true },
   { name: "Farmer's Market", slots: 11, sequential: true },

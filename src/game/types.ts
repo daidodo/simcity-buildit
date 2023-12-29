@@ -3,7 +3,7 @@ export interface ProductionData {
   time: number; // time to produce, in seconds
   price: number;
   producer: string;
-  requirements?: string[];
+  requirements?: { name: string; count: number }[];
 }
 
 export interface ProducerData {

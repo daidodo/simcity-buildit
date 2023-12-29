@@ -1,9 +1,9 @@
-export interface ProductionData {
+export interface ProductData {
   name: string;
   time: number; // time to produce, in seconds
   price: number;
   producer: string;
-  requirements?: { name: string; count: number }[];
+  deps?: { name: string; count: number }[];
 }
 
 export interface ProducerData {

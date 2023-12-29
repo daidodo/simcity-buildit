@@ -4,7 +4,7 @@ import args from 'args';
 
 import {
   init,
-  Production,
+  Product,
   simoleon,
   SIMOLEON,
   timeStr,
@@ -30,11 +30,11 @@ enum SortBy {
 
 type Stats = [string, number, number, number];
 
-function listSummary(productions: Production[], sortBy: SortBy, hours: number) {
+function listSummary(productions: Product[], sortBy: SortBy, hours: number) {
   const title = ['Name', 'Time', 'Price', `${SIMOLEON}/${hours === 1 ? 'h' : hours + 'h'}`];
   const table: Stats[] = productions.map(p => [
     p.name,
-    p.totalTime,
+    p.totalTimeEst,
     p.price,
     p.pricePerHours(hours),
   ]);

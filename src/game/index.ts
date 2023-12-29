@@ -1,18 +1,46 @@
+import { assertNonNull } from '@dozerg/condition';
+
 import {
   ALL_PRODUCERES,
-  ALL_PRODUCTIONS,
+  ALL_PRODUCTS,
 } from './data';
-import Production from './Production';
+import Product from './Product';
+import { ProductData } from './types';
 
 export * from './simoleon';
 export { timeStr } from './time';
 export * from './plan';
 export * from './types';
+export { Product };
 
 export function init() {
-  const productions = ALL_PRODUCTIONS.map(data => new Production(data, ALL_PRODUCERES));
-  productions.forEach(p => p.init(productions));
-  return productions;
+  const products = new Array<Product>();
+  ALL_PRODUCTS.forEach(data => getProduct(data, products));
+  return products;
 }
 
-export { Production };
+function getProduct(data: ProductData, products: Product[]): Product {
+  const exist = products.find(p => p.name === data.name);
+  if (exist) return exist;
+  const producer = ALL_PRODUCERES.find(p => p.name === data.producer);
+  assertNonNull(producer);
+  const deps = getDeps(data, products);
+  const totalTime = getTotalTimeEst(data, deps);
+  const product = new Product(data, producer, totalTime, deps);
+  products.push(product);
+  return product;
+}
+
+function getDeps(data: ProductData, products: Product[]) {
+  return (
+    data.deps?.map(d => {
+      const pd = ALL_PRODUCTS.find(p => p.name === d.name);
+      assertNonNull(pd);
+      return { product: getProduct(pd, products), count: d.count };
+    }) ?? []
+  );
+}
+
+function getTotalTimeEst(data: ProductData, deps: Product['deps']) {
+  return deps.map(p => p.product.totalTimeEst).reduce((a, b) => (a > b ? a : b), 0) + data.time;
+}

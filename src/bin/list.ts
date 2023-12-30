@@ -84,7 +84,7 @@ function format(title: string[], table: Stats[]) {
     const [name, time, price, pricePerHour] = row;
     return [name, timeStr(time), simoleon(price), simoleon(pricePerHour)];
   });
-  return formatTable(title, content);
+  return formatTable([title], content);
 }
 
 main(process.argv);

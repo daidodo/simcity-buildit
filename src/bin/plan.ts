@@ -45,7 +45,9 @@ function print(steps: ProduceStep[]) {
   const table = toTable(steps, events);
   const names = steps.map(s => s.product.name + (s.count === 1 ? '' : `-${s.count}`));
   const title = ['Time', ...names];
-  const output = formatTable(title, table);
+  const producers = steps.map(s => `(${s.product.producer.name})`);
+  const subTitle = ['', ...producers];
+  const output = formatTable([title, subTitle], table);
   process.stdout.write(output);
   process.stdout.write('\n');
 }

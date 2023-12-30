@@ -21,7 +21,10 @@ export function formatTable(title: string[], content: string[][], options?: Opti
     return r;
   }, Array(title.length).fill(cs));
   const lines = [title, ['---'], ...content].map(row =>
-    row.map((c, i) => c.padEnd(cl[i], ' ')).join(' '.repeat(sc)),
+    row
+      .map((c, i) => c.padEnd(cl[i], ' '))
+      .join(' '.repeat(sc))
+      .trim(),
   );
   return lines.join('\n');
 }

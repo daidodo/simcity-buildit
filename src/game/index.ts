@@ -25,8 +25,7 @@ function getProduct(data: ProductData, products: Product[]): Product {
   const producer = ALL_PRODUCERES.find(p => p.name === data.producer);
   assertNonNull(producer);
   const deps = getDeps(data, products);
-  const totalTime = getTotalTimeEst(data, deps);
-  const product = new Product(data, producer, totalTime, deps);
+  const product = new Product(data, producer, deps);
   products.push(product);
   return product;
 }
@@ -39,8 +38,4 @@ function getDeps(data: ProductData, products: Product[]) {
       return { product: getProduct(pd, products), count: d.count };
     }) ?? []
   );
-}
-
-function getTotalTimeEst(data: ProductData, deps: Product['deps']) {
-  return deps.map(p => p.product.totalTimeEst).reduce((a, b) => (a > b ? a : b), 0) + data.time;
 }

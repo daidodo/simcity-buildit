@@ -13,12 +13,11 @@ export interface ProduceStep {
 interface Params {
   steps: ProduceStep[];
   producers: Map<string, { time: number; step: ProduceStep }>;
-  time: number;
 }
 
-export function getProducePlan(product: Product) {
-  const p: Params = { steps: [], producers: new Map(), time: 0 };
-  produceSteps(product, p);
+export function getProducePlan(products: Product[]) {
+  const p: Params = { steps: [], producers: new Map() };
+  products.forEach(product => produceSteps(product, 0, p));
   normalise(p.steps);
   return p.steps;
 }
@@ -45,16 +44,16 @@ export function optimiseSteps(steps: ProduceStep[]) {
   return newSteps;
 }
 
-function produceSteps(product: Product, p: Params) {
+function produceSteps(product: Product, time: number, p: Params) {
   const { producer } = product;
-  const { time, step: next } = getProducerTime(product, p);
-  const end = Math.min(p.time, time);
+  const { time: producerTime, step: next } = getProducerTime(product, p);
+  const end = Math.min(time, producerTime);
   const start = end - product.time;
   const step: ProduceStep = { product, start, end, deps: [], count: 1 };
   p.steps.push(step);
   if (producer.sequential) p.producers.set(producer.name, { time: start, step });
   step.deps = product.deps.flatMap(d =>
-    new Array<Product>(d.count).fill(d.product).map(a => produceSteps(a, { ...p, time: start })),
+    new Array<Product>(d.count).fill(d.product).map(a => produceSteps(a, start, p)),
   );
   if (next) next.deps.push(step);
   return step;

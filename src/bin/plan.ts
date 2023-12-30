@@ -23,18 +23,20 @@ interface TimeEvents {
 
 function main(argv: string[]) {
   // @ts-expect-error: Disable options type check
-  args.parse(argv, { value: '<Product Name>' });
-  const name = args.sub.join(' ').toLowerCase();
-  if (!name) {
-    args.showHelp();
-  }
+  args.parse(argv, { value: '<Product Names>' });
+  const names = args.sub;
+  if (!names || names.length < 1) args.showHelp();
+
   const products = init();
-  const product = products.find(p => p.name.toLowerCase() === name);
-  if (!product) {
-    process.stderr.write(`Cannot find product name: ${name}\n`);
-    process.exit(1);
-  }
-  const steps = optimiseSteps(getProducePlan(product));
+  const needs = names.map(name => {
+    const product = products.find(p => p.name.toLowerCase() === name.toLowerCase());
+    if (!product) {
+      process.stderr.write(`Cannot find product name: ${name}\n`);
+      process.exit(1);
+    }
+    return product;
+  });
+  const steps = optimiseSteps(getProducePlan(needs));
   print(steps);
 }
 

@@ -11,8 +11,9 @@ export function formatTable(title: string[][], content: string[][], options?: Op
   // options
   const cs = options?.minimalColunmSize ?? DEFAULT_OPTIONS.minimalColunmSize;
   const sc = options?.spacesBetweenColumns ?? DEFAULT_OPTIONS.spacesBetweenColumns;
+  // calc # of column
+  const len = Math.max(...[...title, ...content].map(a => a.length));
   // calc column lengths
-  assertTrue(title.length > 0);
   const cl = [...title, ...content].reduce((r, a) => {
     assertTrue(a.length <= r.length);
     for (let i = 0; i < r.length; ++i) {
@@ -20,7 +21,7 @@ export function formatTable(title: string[][], content: string[][], options?: Op
       r[i] = Math.max(r[i], a[i].length);
     }
     return r;
-  }, Array(title[0].length).fill(cs));
+  }, Array(len).fill(cs));
   const lines = [...title, ['---'], ...content].map(row =>
     row
       .map((c, i) => c.padEnd(cl[i], ' '))

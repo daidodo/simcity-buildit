@@ -1,6 +1,6 @@
 import { assertTrue } from '@dozerg/condition';
 
-import Product from './Product';
+import { Product } from './types';
 
 export interface ProduceStep {
   product: Product;

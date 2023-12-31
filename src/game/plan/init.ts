@@ -3,15 +3,9 @@ import { assertNonNull } from '@dozerg/condition';
 import {
   ALL_PRODUCERES,
   ALL_PRODUCTS,
-} from './data';
-import Product from './Product';
-import { ProductData } from './types';
-
-export * from './simoleon';
-export { timeStr } from './time';
-export * from './plan';
-export * from './types';
-export { Product };
+  ProductData,
+} from '../data';
+import { Product } from './types';
 
 export function init() {
   const products = new Array<Product>();
@@ -25,7 +19,7 @@ function getProduct(data: ProductData, products: Product[]): Product {
   const producer = ALL_PRODUCERES.find(p => p.name === data.producer);
   assertNonNull(producer);
   const deps = getDeps(data, products);
-  const product = new Product(data, producer, deps);
+  const product: Product = { ...data, producer, deps };
   products.push(product);
   return product;
 }

@@ -1,8 +1,10 @@
-import { t } from './time';
+import { t } from '../helper';
 import {
   ProducerData,
   ProductData,
 } from './types';
+
+export { ProducerData, ProductData };
 
 export const ALL_PRODUCERES: ProducerData[] = [
   { name: 'Factory', slots: 55 },
@@ -407,8 +409,8 @@ export const ALL_PRODUCTS: ProductData[] = [
     price: 1840,
     producer: 'Donut Shop',
     deps: [
-      { name: 'Flour Bag', count: 2 },
       { name: 'Cream', count: 1 },
+      { name: 'Flour Bag', count: 2 },
     ],
   },
   {

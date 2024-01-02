@@ -1,7 +1,7 @@
 import {
   ALL_PRODUCERES,
   ALL_PRODUCTS,
-} from './data';
+} from './';
 import { ProductData } from './types';
 
 describe('ALL_PRODUCTIONS', () => {

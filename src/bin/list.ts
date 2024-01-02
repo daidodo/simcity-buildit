@@ -2,12 +2,10 @@
 
 import args from 'args';
 
-import { assertTrue } from '@dozerg/condition';
-
 import {
+  ALL_PRODUCTS,
   getProducePlan,
-  init,
-  Product,
+  ProductData,
   simoleon,
   SIMOLEON,
   timeStr,
@@ -37,15 +35,14 @@ type Stats = [string, number, number, number];
 function main(argv: string[]) {
   const flags = args.parse(argv);
   if (flags.count < 1 || flags.earn < 1) args.showHelp();
-  const products = init();
   const sortBy = flags.time ? SortBy.TIME : flags.price ? SortBy.PRICE : SortBy.PRICE_PER_HOUR;
-  listSummary(products, flags.count, sortBy, flags.earn);
+  listSummary(ALL_PRODUCTS, flags.count, sortBy, flags.earn);
 }
 
-function listSummary(products: Product[], count: number, sortBy: SortBy, hours: number) {
+function listSummary(products: ProductData[], count: number, sortBy: SortBy, hours: number) {
   const table: Stats[] = products.map(p => {
-    const { totalTime, pricePerHours } = getTotalTime(p, count, hours);
-    return [p.name + (count === 1 ? '' : `-${count}`), totalTime, p.price, pricePerHours];
+    const { time, pricePerHours } = getTotalTime(p, count, hours);
+    return [p.name + (count === 1 ? '' : `-${count}`), time, p.price, pricePerHours];
   });
   sort(table, sortBy);
   const title = ['Name', 'Time', 'Price', `${SIMOLEON}/${hours === 1 ? 'h' : hours + 'h'}`];
@@ -54,11 +51,9 @@ function listSummary(products: Product[], count: number, sortBy: SortBy, hours: 
   process.stdout.write('\n');
 }
 
-function getTotalTime(product: Product, count: number, hours: number) {
-  const steps = getProducePlan(new Array<Product>(count).fill(product));
-  assertTrue(steps.length > 0);
-  const totalTime = steps.slice(-1)[0].end;
-  return { totalTime, pricePerHours: getPricePerHours(product.price, totalTime, hours) };
+function getTotalTime(product: ProductData, count: number, hours: number) {
+  const { time } = getProducePlan(new Array<ProductData>(count).fill(product));
+  return { time, pricePerHours: getPricePerHours(product.price, time, hours) };
 }
 
 function getPricePerHours(price: number, totalTime: number, hours: number) {

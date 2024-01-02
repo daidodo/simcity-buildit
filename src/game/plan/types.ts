@@ -1,9 +1,8 @@
-import { ProducerData } from '../data';
+import { ProductData } from '../data';
 
-export interface Product {
-  name: string;
-  time: number;
-  price: number;
-  producer: ProducerData;
-  deps: { product: Product; count: number }[];
+export interface ProduceStep {
+  product: ProductData;
+  count: number;
+  start: number;
+  end: number;
 }

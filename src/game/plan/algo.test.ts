@@ -48,9 +48,6 @@ describe('Algo', () => {
   const tasks = [A, B, C, D, E];
   it('should work', () => {
     const time = solve(tasks);
-    console.log('Time:', time);
-    console.log('tasks:', tasks);
-
     expect(time > 0).toBeTruthy();
   });
 });

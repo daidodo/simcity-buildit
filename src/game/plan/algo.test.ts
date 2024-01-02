@@ -6,32 +6,34 @@ import {
 describe('Algo', () => {
   const WORKER = { name: 'WA' };
 
-  const A: Task = {
-    name: 'A',
+  type TT = Task<string>;
+
+  const A: TT = {
+    data: 'A',
     time: 10,
   };
-  const B: Task = {
-    name: 'B',
+  const B: TT = {
+    data: 'B',
     time: 20,
   };
-  const C: Task = {
-    name: 'C',
+  const C: TT = {
+    data: 'C',
     time: 15,
     deps: {
       worker: WORKER,
       tasks: [A],
     },
   };
-  const D: Task = {
-    name: 'D',
+  const D: TT = {
+    data: 'D',
     time: 50,
     deps: {
       worker: WORKER,
       tasks: [B],
     },
   };
-  const E: Task = {
-    name: 'E',
+  const E: TT = {
+    data: 'E',
     time: 10,
     deps: {
       worker: WORKER,

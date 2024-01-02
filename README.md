@@ -23,7 +23,7 @@ Tools for the game.
 $ node ./dist/bin/list -h
 ```
 
-```sh
+```log
   Usage: list [options] [command]
 
   Commands:
@@ -41,7 +41,7 @@ $ node ./dist/bin/list -h
 
 ### Example: List all products and sort by earnings in 4 hours.
 
-```sh
+```log
 $ node ./dist/bin/list
 Name                   Time      Price   §/4h
 ---
@@ -116,7 +116,7 @@ Metal                  1m        §10     §10
 $ node ./dist/bin/plan -h
 ```
 
-```sh
+```log
   Usage: plan [options] [command] <Product Names>
 
   Commands:
@@ -130,7 +130,7 @@ $ node ./dist/bin/plan -h
 
 ### Example: Show production steps for Burger
 
-```sh
+```log
 $ node ./dist/bin/plan burger
 Time      Metal-5    Wood-2     Plastic-2  Seeds-4    Textiles-4  Animal Feed-4  Cooking Utensils  BBQ Grill          Flour Bag-2        Cream              Bread Roll    Beef               Burger
           (Factory)  (Factory)  (Factory)  (Factory)  (Factory)   (Factory)      (Hardware Store)  (Home Appliances)  (Farmer's Market)  (Farmer's Market)  (Donut Shop)  (Farmer's Market)  (Fast Food Restaurant)
@@ -149,7 +149,6 @@ Time      Metal-5    Wood-2     Plastic-2  Seeds-4    Textiles-4  Animal Feed-4 
 7h48m                                                                                                                                                       ⊥             |
 9h                                                                                                                                                                        ⊥                  *
 9h29m45s                                                                                                                                                                                     ⊥
-
 ```
 
 # License

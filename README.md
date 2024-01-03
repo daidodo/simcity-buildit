@@ -128,7 +128,7 @@ $ node ./dist/bin/plan -h
     -v, --version  Output the version number
 ```
 
-### Example: Show production steps for Burger
+### Example: Show production steps for Burger🍔
 
 ```log
 $ node ./dist/bin/plan burger

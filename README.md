@@ -35,7 +35,7 @@ $ node ./dist/bin/list -h
     -e, --earn <n>   Sort by earnings per n hours, must be positive (defaults to 4)
     -h, --help       Output usage information
     -p, --price      Sort by sale price
-    -t, --time       Sort by prduce time
+    -t, --time       Sort by production time
     -v, --version    Output the version number
 ```
 

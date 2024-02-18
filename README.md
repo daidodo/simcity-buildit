@@ -7,11 +7,12 @@ First publish:
 npm publish --access public
 ```
 
-[![npm](https://img.shields.io/npm/v/PROJECT_NAME.svg)](https://www.npmjs.com/package/PROJECT_NAME)
-![Downloads](https://img.shields.io/npm/dm/PROJECT_NAME.svg)
-[![Build Status](https://github.com/daidodo/TEMPLATE_TypeScript/actions/workflows/node.js.yml/badge.svg)](https://github.com/daidodo/TEMPLATE_TypeScript/actions)
+[![npm](https://img.shields.io/npm/v/PROJECT_NAME.svg)](https://www.npmjs.com/package/simcity-buildit)
+![Downloads](https://img.shields.io/npm/dm/simcity-buildit.svg)
 
 -->
+
+[![Build Status](https://github.com/daidodo/simcity-buildit/actions/workflows/node.js.yml/badge.svg)](https://github.com/daidodo/simcity-buildit/actions)
 
 Tools for the game.
 
@@ -128,7 +129,7 @@ $ node ./dist/bin/plan -h
     -v, --version  Output the version number
 ```
 
-### Example: Show production steps for Burger
+### Example: Show production steps for Burger🍔
 
 ```log
 $ node ./dist/bin/plan burger

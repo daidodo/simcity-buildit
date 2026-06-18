@@ -13,14 +13,25 @@ export interface Task<T> {
 export interface Worker {
   name: string;
   // internal
-  slots?: { start: number; end: number }[];
+  slots?: { start: number; end: number; task?: Task<unknown> }[];
 }
 
 export function solve<T>(tasks: Task<T>[]) {
+  resetState(tasks);
   init(tasks);
   const result = helper(tasks);
   result.steps.forEach(s => (s.task.start = s.start));
   return result.time;
+}
+
+function resetState<T>(tasks: Task<T>[]) {
+  const workers = new Set<Worker>();
+  tasks.forEach(t => {
+    t.start = undefined;
+    t.nonTrivial = undefined;
+    if (t.deps) workers.add(t.deps.worker);
+  });
+  workers.forEach(w => (w.slots = undefined));
 }
 
 function init<T>(tasks: Task<T>[]) {
@@ -62,21 +73,21 @@ function helper<T>(tasks: Task<T>[]): Result<T> {
 
 function startTask<T>(task: Task<T>) {
   const startMin = findStartTime(task);
-  task.start = task.deps ? findTimeSlot(task.deps.worker, startMin, task.time) : startMin;
+  task.start = task.deps ? findTimeSlot(task.deps.worker, startMin, task.time, task) : startMin;
 }
 
 function revertTask<T>(task: Task<T>) {
   if (task.deps) {
-    task.deps.worker.slots = task.deps.worker.slots?.filter(s => s.start != task.start);
+    task.deps.worker.slots = task.deps.worker.slots?.filter(s => s.task !== task);
   }
   task.start = undefined;
 }
 
-function findTimeSlot(worker: Worker, start: number, time: number) {
+function findTimeSlot<T>(worker: Worker, start: number, time: number, task: Task<T>) {
   if (!worker.slots) worker.slots = [];
   const end = start + time;
   if (worker.slots.length < 1) {
-    worker.slots.push({ start, end });
+    worker.slots.push({ start, end, task: task as Task<unknown> });
     return start;
   }
   let prev = start;
@@ -84,7 +95,7 @@ function findTimeSlot(worker: Worker, start: number, time: number) {
     if (prev + time <= slot.start) break;
     else if (prev < slot.end) prev = slot.end;
   }
-  worker.slots.push({ start: prev, end: prev + time });
+  worker.slots.push({ start: prev, end: prev + time, task: task as Task<unknown> });
   worker.slots.sort((a, b) => a.start - b.start);
   return prev;
 }

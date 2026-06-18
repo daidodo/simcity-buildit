@@ -12,6 +12,17 @@ import {
 } from '../game';
 import { formatTable } from './helper';
 
+function positiveInt(name: string) {
+  return (s: string) => {
+    const n = Number(s);
+    if (!Number.isFinite(n) || n < 1) {
+      process.stderr.write(`Error: --${name} must be a positive number (got: ${s})\n`);
+      process.exit(1);
+    }
+    return n;
+  };
+}
+
 args.options([
   { name: 'time', description: 'Sort by prduce time' },
   { name: 'price', description: 'Sort by sale price' },
@@ -19,9 +30,14 @@ args.options([
     name: 'earn',
     description: 'Sort by earnings per n hours, must be positive',
     defaultValue: 4,
-    init: s => +s,
+    init: positiveInt('earn'),
   },
-  { name: 'count', description: '# of products, must be positive', defaultValue: 1, init: s => +s },
+  {
+    name: 'count',
+    description: '# of products, must be positive',
+    defaultValue: 1,
+    init: positiveInt('count'),
+  },
 ]);
 
 enum SortBy {

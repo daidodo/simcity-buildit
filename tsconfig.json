@@ -5,6 +5,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
+    "allowJs": true,
     "rootDir": "src",
     "outDir": "dist"
   },

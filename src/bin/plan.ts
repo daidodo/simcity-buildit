@@ -21,8 +21,7 @@ interface TimeEvents {
 }
 
 function main(argv: string[]) {
-  // @ts-expect-error: Disable options type check
-  args.parse(argv, { value: '<Product Names>' });
+  args.parse(argv, { value: '<Product Names>' } as Parameters<typeof args.parse>[1]);
   const names = args.sub;
   if (!names || names.length < 1) args.showHelp();
 

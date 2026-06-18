@@ -14,7 +14,34 @@ npm publish --access public
 
 [![Build Status](https://github.com/daidodo/simcity-buildit/actions/workflows/node.js.yml/badge.svg)](https://github.com/daidodo/simcity-buildit/actions)
 
-Tools for the game.
+A command-line companion for the mobile city-building game [SimCity BuildIt](https://www.ea.com/games/simcity/simcity-buildit). It answers two questions players ask all the time:
+
+1. **What should I produce to make the most money?** — the `list` command ranks every craftable item by earnings per hour (or by price, or by production time).
+2. **What is the fastest way to produce item X?** — the `plan` command expands an item's full dependency tree and schedules every sub-item across the game's producer buildings, respecting their slot limits, so the total time is as short as possible.
+
+## Background
+
+In SimCity BuildIt, items are crafted in **producer buildings** (Factory, Hardware Store, Farmer's Market, etc.). Most items depend on other items: a *Burger* needs a *Bread Roll*, *Beef*, a *BBQ Grill*, and *Cooking Utensils*; the *Bread Roll* itself needs *Flour Bags* and *Cream*; the *Flour Bag* needs raw *Wheat* from the Factory; and so on. Each producer has a limited number of crafting slots:
+
+- The **Factory** has many slots (55) and runs items in **parallel**.
+- All other producers run items **sequentially** with a small slot queue (7–11 slots).
+
+Picking a good order matters: starting the long-running raw materials first, and packing dependent items into the right producer queues, can cut hours off the total time. This project encodes the full product/producer table from the game and runs a scheduling algorithm over it.
+
+## Install / Build
+
+This is a TypeScript project. Clone and build it locally:
+
+```sh
+git clone https://github.com/daidodo/simcity-buildit.git
+cd simcity-buildit
+npm install
+npm run build
+```
+
+The compiled CLIs are then available at `./dist/bin/list` and `./dist/bin/plan` (invoked as `node ./dist/bin/list` etc., as shown below).
+
+Tests: `npm test`.
 
 # Usage
 
@@ -39,6 +66,8 @@ $ node ./dist/bin/list -h
     -t, --time       Sort by production time
     -v, --version    Output the version number
 ```
+
+The `§/4h` column shows the effective earnings per 4 hours (capped at the item's sale price if a single batch takes less than 4 hours): a fair proxy for "how much can I earn from this product if I check back roughly every 4 hours". Use `-e` to change the time window, or `-c` to ask "what if I produce N at once" (which is useful for sequential producers where stacked orders share queue time).
 
 ### Example: List all products and sort by earnings in 4 hours.
 
@@ -129,6 +158,15 @@ $ node ./dist/bin/plan -h
     -v, --version  Output the version number
 ```
 
+Takes one or more product names and prints a Gantt-style schedule that shows when each sub-item must start and end to finish the whole order as quickly as possible.
+
+Reading the chart:
+
+- Each column is a sub-item; the suffix (e.g. `Metal-5`) shows how many of that item are needed.
+- The line below the name (`(Factory)`, `(Donut Shop)`, ...) is the producer the item is crafted in.
+- The leftmost column is the elapsed time (`0s` is "start now").
+- `*` marks when an item **starts** producing, `⊥` marks when it **finishes**, and `|` means the item is **in progress** at that row's timestamp.
+
 ### Example: Show production steps for Burger🍔
 
 ```log
@@ -151,6 +189,8 @@ Time      Metal-5    Wood-2     Plastic-2  Seeds-4    Textiles-4  Animal Feed-4 
 9h                                                                                                                                                                        ⊥                  *
 9h29m45s                                                                                                                                                                                     ⊥
 ```
+
+You can pass multiple products to plan a combined order, e.g. `node ./dist/bin/plan burger pizza`.
 
 # License
 
